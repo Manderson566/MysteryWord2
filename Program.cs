@@ -15,9 +15,9 @@ namespace MysteryWord2
         {
             bool retry = true;
             while (retry)
-                retry = false;
-            {
 
+            {
+                Console.Clear();
                 string[] pulledWordArray = File.ReadAllLines(@"..\..\words.txt");
                 List<string> pulledWordList = pulledWordArray.ToList<string>();
 
@@ -25,15 +25,13 @@ namespace MysteryWord2
                 int randomName = rng.Next(pulledWordList.Count);
                 string randomWord = pulledWordList[randomName];
 
+                Console.WriteLine("");
+                Console.WriteLine("WELCOME TO MYSTERY WORD! GUESS A LETTER!");
+                Console.WriteLine("");
+                Console.WriteLine("");
+                int numLetters = randomWord.Length;
+                int letterCount = numLetters;
                 int counter = 0;
-                Console.WriteLine(randomWord);
-                foreach (char place in randomWord)
-                {
-                    Console.Write("_ ");
-                    counter++;
-                }
-                counter = 0;
-
                 int rWordLength = randomWord.Length;
                 int turns = rWordLength;
                 List<char> usedLetters = new List<char>();
@@ -41,27 +39,42 @@ namespace MysteryWord2
                 bool winCheck = true;
                 while (winCheck && turns > 0)
                 {
+                    
+                    string combindOutput = string.Join("|", output.ToArray());
+                    Console.WriteLine($"You Have {turns} Incorrect Guesses Left");
+                    Console.Write("Correct Guesses =");
+                    Console.WriteLine(combindOutput);
+                    Console.WriteLine($"The Mystery Word you are looking for has {letterCount} letters and/or characters");
+
+                    string combindUsedletters = string.Join(",", usedLetters.ToArray());
+                    Console.WriteLine($"The Letters you have used are ( {combindUsedletters} )");
 
                     string letter = Console.ReadLine();
+                    letter = letter.ToLower();
                     Console.Clear();
                     char input = letter[0];
+
                     if (usedLetters.Contains(input))
                     {
                         usedLetters.Add(input);
-                        Console.WriteLine("You've already used '{0}',", input);
+                        Console.WriteLine("");
+                        Console.WriteLine("     USED LETTER!");                        
+                        Console.WriteLine("");
+                        Console.WriteLine("YOU HAVE ALREADY USED {0},", input);
                         continue;
                     }
                     if (randomWord.Contains(input))
                     {
+                        Console.WriteLine("");
+                        Console.WriteLine("     CORRECT!");
+                        Console.WriteLine("");
                         usedLetters.Add(input);
-
                         for (int countLength = 0; countLength < rWordLength; countLength++)
                         {
                             if (randomWord[countLength] == input)
                             {
                                 output[countLength] = randomWord[countLength];
                                 counter++;
-
                             }
                         }
                         string output2 = new string(output);
@@ -73,60 +86,47 @@ namespace MysteryWord2
                     else
                     {
                         usedLetters.Add(input);
-                        Console.WriteLine("Wrong", input);
+                        Console.WriteLine("");
+                        Console.WriteLine("     WRONG!", input);
+                        Console.WriteLine("");
                         turns--;
                     }
-                    Console.WriteLine(randomWord);
-                    Console.WriteLine(output);
-                    Console.WriteLine($"Your Have {turns} Trys Left");
-
-                    foreach (char place in randomWord)
-                    {
-                        Console.Write("_ ");
-                        counter++;
-                    }
+                    //Console.WriteLine(randomWord);
+                    Console.WriteLine($"Make Your Guess. You Have {turns} Incorrect guesses left");
+            
                     if (winCheck == false)
                     {
-                        Console.WriteLine("winner");
-                        Console.WriteLine("Play agian Y/N ?");
+                        Console.WriteLine("   You Win!");
+                        Console.WriteLine("Type Y To Try Again");
                         string playAgainCK = Console.ReadLine();
-                        if (playAgainCK == "Y")
+                        if (playAgainCK.ToUpper() == "Y")
                         {
-                            retry = true;
+                            continue;
                         }
-                        else if (playAgainCK == "N")
+                        else 
                         {
-                            Console.WriteLine("Press Enter to exit");
-                            retry = false;
+                            Console.WriteLine("Goodbye");
+                            continue;
                         }
                     }
                     else if (turns == 0)
                     {
-                        Console.WriteLine("Loser");
-                        Console.WriteLine("Play agian Y/N ?");
+                        Console.WriteLine($"   You Lose! The Word Was ({randomWord}) ");
+                        Console.WriteLine("Type (Y) To Play Agian");
                         string playAgainCK = Console.ReadLine();
-                        if (playAgainCK == "Y")
+                        if (playAgainCK.ToUpper() == "Y")
                         {
                             retry = true;
                         }
-                        else if (playAgainCK == "N")
+                        else 
                         {
-                            Console.WriteLine("Press Enter to exit");
-                            retry = false;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Incorrect Entery");
+                            Console.WriteLine("Goodbye");
                             retry = false;
                         }
                     }
                 }
 
             }
-
-
-
-
         }
     }
 }
