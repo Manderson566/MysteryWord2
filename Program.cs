@@ -39,7 +39,7 @@ namespace MysteryWord2
                     Console.Write("Correct Guesses =");
                     Console.WriteLine(combindOutput);
                     Console.WriteLine($"The Mystery Word you are looking for has {letterCount} letters and/or characters");
-                    Console.WriteLine(randomWord);
+                    //Console.WriteLine(randomWord);
                     string combindUsedletters = string.Join(",", usedLetters.ToArray());
                     Console.WriteLine($"The Letters you have used are ( {combindUsedletters} )");
                     string enteredString = Console.ReadLine();
