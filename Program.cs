@@ -9,22 +9,17 @@ namespace MysteryWord2
 {
     class Program
     {
-
-
         static void Main(string[] args)
         {
             bool retry = true;
             while (retry)
-
             {
                 Console.Clear();
                 string[] pulledWordArray = File.ReadAllLines(@"..\..\words.txt");
                 List<string> pulledWordList = pulledWordArray.ToList<string>();
-
                 var rng = new Random();
                 int randomName = rng.Next(pulledWordList.Count);
                 string randomWord = pulledWordList[randomName];
-
                 Console.WriteLine("");
                 Console.WriteLine("WELCOME TO MYSTERY WORD! GUESS A LETTER!");
                 Console.WriteLine("");
@@ -39,17 +34,14 @@ namespace MysteryWord2
                 bool winCheck = true;
                 while (winCheck && turns > 0)
                 {
-                    
                     string combindOutput = string.Join("|", output.ToArray());
                     Console.WriteLine($"You Have {turns} Incorrect Guesses Left");
                     Console.Write("Correct Guesses =");
                     Console.WriteLine(combindOutput);
                     Console.WriteLine($"The Mystery Word you are looking for has {letterCount} letters and/or characters");
                     Console.WriteLine(randomWord);
-
                     string combindUsedletters = string.Join(",", usedLetters.ToArray());
                     Console.WriteLine($"The Letters you have used are ( {combindUsedletters} )");
-
                     string enteredString = Console.ReadLine();
                     enteredString = enteredString.ToLower();
                     while (enteredString == "")
@@ -58,16 +50,13 @@ namespace MysteryWord2
                         enteredString = Console.ReadLine();
                         enteredString = enteredString.ToLower();
                     }
-                    
-
                     Console.Clear();
                     char input = enteredString[0];
-
                     if (usedLetters.Contains(input))
                     {
                         usedLetters.Add(input);
                         Console.WriteLine("");
-                        Console.WriteLine("     USED LETTER!");                        
+                        Console.WriteLine("     USED LETTER!");
                         Console.WriteLine("");
                         Console.WriteLine("YOU HAVE ALREADY USED {0},", input);
                         continue;
@@ -99,7 +88,7 @@ namespace MysteryWord2
                         Console.WriteLine("     WRONG!", input);
                         Console.WriteLine("");
                         turns--;
-                    }                  
+                    }
                     if (winCheck == false)
                     {
                         Console.WriteLine($"   You Win! The Word Was ({randomWord}) :D ");
@@ -109,7 +98,7 @@ namespace MysteryWord2
                         {
                             continue;
                         }
-                        else 
+                        else
                         {
                             Console.WriteLine("Goodbye");
                             retry = false;
@@ -126,14 +115,13 @@ namespace MysteryWord2
                         {
                             continue;
                         }
-                        else 
+                        else
                         {
                             Console.WriteLine("Goodbye");
                             retry = false;
                         }
                     }
                 }
-
             }
         }
     }
