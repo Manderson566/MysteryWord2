@@ -45,14 +45,23 @@ namespace MysteryWord2
                     Console.Write("Correct Guesses =");
                     Console.WriteLine(combindOutput);
                     Console.WriteLine($"The Mystery Word you are looking for has {letterCount} letters and/or characters");
+                    Console.WriteLine(randomWord);
 
                     string combindUsedletters = string.Join(",", usedLetters.ToArray());
                     Console.WriteLine($"The Letters you have used are ( {combindUsedletters} )");
 
-                    string letter = Console.ReadLine();
-                    letter = letter.ToLower();
+                    string enteredString = Console.ReadLine();
+                    enteredString = enteredString.ToLower();
+                    while (enteredString == "")
+                    {
+                        Console.WriteLine("ENTER A LETTER!");
+                        enteredString = Console.ReadLine();
+                        enteredString = enteredString.ToLower();
+                    }
+                    
+
                     Console.Clear();
-                    char input = letter[0];
+                    char input = enteredString[0];
 
                     if (usedLetters.Contains(input))
                     {
@@ -90,13 +99,10 @@ namespace MysteryWord2
                         Console.WriteLine("     WRONG!", input);
                         Console.WriteLine("");
                         turns--;
-                    }
-                    //Console.WriteLine(randomWord);
-                    Console.WriteLine($"Make Your Guess. You Have {turns} Incorrect guesses left");
-            
+                    }                  
                     if (winCheck == false)
                     {
-                        Console.WriteLine("   You Win!");
+                        Console.WriteLine($"   You Win! The Word Was ({randomWord}) :D ");
                         Console.WriteLine("Type Y To Try Again");
                         string playAgainCK = Console.ReadLine();
                         if (playAgainCK.ToUpper() == "Y")
@@ -106,17 +112,19 @@ namespace MysteryWord2
                         else 
                         {
                             Console.WriteLine("Goodbye");
-                            continue;
+                            retry = false;
                         }
                     }
                     else if (turns == 0)
                     {
-                        Console.WriteLine($"   You Lose! The Word Was ({randomWord}) ");
-                        Console.WriteLine("Type (Y) To Play Agian");
+                        Console.Clear();
+                        Console.WriteLine("");
+                        Console.WriteLine($"   YOU LOSE! The Word Was ({randomWord}) :( ");
+                        Console.WriteLine("Type ( Y )  To Play Agian");
                         string playAgainCK = Console.ReadLine();
                         if (playAgainCK.ToUpper() == "Y")
                         {
-                            retry = true;
+                            continue;
                         }
                         else 
                         {
